@@ -19,7 +19,7 @@ export function createNestedNamespace<
     transformProperty?(args: {
       namespace: string;
       propertyKey: string;
-      property: unknown;
+      property: any;
     }): void;
   }
 ): NestedNamespace<Properties> {
