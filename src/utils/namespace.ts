@@ -3,19 +3,27 @@ import { FlatNamespace, NestedNamespace } from "~/types/namespace.js";
 
 export function createFlatNamespace<
   Prefix extends string,
-  Properties extends Record<string, unknown>
->(prefix: Prefix, properties: Properties): FlatNamespace<Prefix, Properties> {
+  Properties extends Record<string, unknown>,
+  Separator extends string = "_",
+>(
+  prefix: Prefix,
+  properties: Properties,
+  options?: { separator?: Separator }
+): FlatNamespace<Prefix, Properties, Separator> {
+  const separator = options?.separator ?? "_";
   return mapObject(properties, (key, value) => [
-    (key as string).replace(`${prefix}_`, ""),
+    (key as string).replace(`${prefix}${separator}`, ""),
     value,
   ]) as any;
 }
 
 export function createNestedNamespace<
-  Properties extends Record<string, unknown>
+  Properties extends Record<string, unknown>,
+  Separator extends string = "_",
 >(
   properties: Properties,
   options?: {
+    separator?: Separator;
     transformProperty?(args: {
       namespace: string;
       propertyKey: string;
@@ -24,10 +32,11 @@ export function createNestedNamespace<
   }
 ): NestedNamespace<Properties> {
   const namespaces: Record<string, Record<string, unknown>> = {};
+  const separator = options?.separator ?? "_";
 
   // We bind the `this` type of all library methods to the library
   for (const [propertyIdentifier, property] of Object.entries(properties)) {
-    const [namespace, propertyKey] = propertyIdentifier.split("_");
+    const [namespace, propertyKey] = propertyIdentifier.split(separator);
     if (namespace === undefined || propertyKey === undefined) {
       console.warn(
         "Invalid property identifier, skipping:",
