@@ -8,13 +8,24 @@ export function createFlatNamespace<
 >(
   prefix: Prefix,
   properties: Properties,
-  options?: { separator?: Separator }
+  options?: {
+    separator?: Separator;
+    transformProperty?(args: { propertyKey: string; property: any }): any;
+  }
 ): FlatNamespace<Prefix, Properties, Separator> {
   const separator = options?.separator ?? "_";
-  return mapObject(properties, (key, value) => [
-    (key as string).replace(`${prefix}${separator}`, ""),
-    value,
-  ]) as any;
+  return mapObject(properties, (key, property) => {
+    const propertyKey = (key as string).replace(`${prefix}${separator}`, "");
+    return [
+      propertyKey,
+      options?.transformProperty === undefined
+        ? property
+        : options.transformProperty({
+            propertyKey,
+            property,
+          }),
+    ];
+  }) as any;
 }
 
 export function createNestedNamespace<
@@ -28,7 +39,7 @@ export function createNestedNamespace<
       namespace: string;
       propertyKey: string;
       property: any;
-    }): void;
+    }): any;
   }
 ): NestedNamespace<Properties, Separator> {
   const namespaces: Record<string, Record<string, unknown>> = {};
