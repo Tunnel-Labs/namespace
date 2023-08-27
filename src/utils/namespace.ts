@@ -30,7 +30,7 @@ export function createNestedNamespace<
       property: any;
     }): void;
   }
-): NestedNamespace<Properties> {
+): NestedNamespace<Properties, Separator> {
   const namespaces: Record<string, Record<string, unknown>> = {};
   const separator = options?.separator ?? "_";
 
