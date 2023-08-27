@@ -1,16 +1,17 @@
 {
 	"name": "@tunnel/namespace",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"type": "module",
 	"exports": "./src/index.ts",
 	"scripts": {
 		"build": "ts-node ./scripts/build.ts"
 	},
 	"dependencies": {
-		"map-obj": "5.0.2"
+		"map-obj": "^5.0.2",
+		"type-fest": "^4.2.0"
 	},
 	"devDependencies": {
-		"lionconfig": "3.0.1",
-		"typescript": "5.1.6"
+		"lionconfig": "^3.1.0",
+		"typescript": "^5.2.2"
 	}
 }
