@@ -81,7 +81,7 @@ export function createNestedNamespace<
 
     namespaces[namespace] ??= {};
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- Guaranteed to exist
-    if (namespaces[namespace]![propertyKey] !== undefined) {
+    if (namespaces[namespace]![propertyKey] === undefined) {
       namespaces[namespace]![propertyKey] =
         options?.transformProperty === undefined
           ? property
