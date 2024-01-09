@@ -1,24 +1,25 @@
-import type { UnionToIntersection } from "type-fest";
+import type { IsNever, UnionToIntersection } from "type-fest";
 
 type OverridePropertyKeys<
   $Properties,
   $OverrideSuffix extends string,
 > = keyof $Properties & `${string}${$OverrideSuffix}`;
+
+// prettier-ignore
 type PropertiesWithOverride<$Properties, $OverrideSuffix extends string> = Omit<
   $Properties,
-  OverridePropertyKeys<
-    $Properties,
-    $OverrideSuffix
-  > extends `${infer $KeyToOverride}$`
-    ? $KeyToOverride
-    : never
+  IsNever<OverridePropertyKeys<$Properties, $OverrideSuffix>> extends true ?
+		never :
+	OverridePropertyKeys<$Properties, $OverrideSuffix> extends `${infer $KeyToOverride}${$OverrideSuffix}` ?
+		$KeyToOverride :
+	never
 > & {
-  [K in OverridePropertyKeys<
-    $Properties,
-    $OverrideSuffix
-  > as K extends `${infer $KeyToOverride}${$OverrideSuffix}`
-    ? $KeyToOverride
-    : never]: K extends keyof $Properties ? $Properties[K] : never;
+  [
+		K in OverridePropertyKeys<$Properties, $OverrideSuffix> as
+			K extends `${infer $KeyToOverride}${$OverrideSuffix}` ?
+				$KeyToOverride :
+    	never
+	]: K extends keyof $Properties ? $Properties[K] : never;
 };
 
 export type NestedNamespace<
