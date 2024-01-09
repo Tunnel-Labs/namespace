@@ -36,7 +36,7 @@ export function createNestedNamespace<
   properties: $Properties,
   options?: {
     separator?: $Separator;
-    overrideSuffix: $OverrideSuffix;
+    overrideSuffix?: $OverrideSuffix;
     transformProperty?(args: {
       namespace: string;
       propertyKey: string;
