@@ -1,6 +1,6 @@
 {
 	"name": "@tunnel/namespace",
-	"version": "2.2.4",
+	"version": "2.2.5",
 	"type": "module",
 	"imports": {
 		"#types/*": "./types/*",
