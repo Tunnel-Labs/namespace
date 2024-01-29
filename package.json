@@ -2,16 +2,34 @@
 	"name": "@tunnel/namespace",
 	"version": "2.2.4",
 	"type": "module",
-	"exports": "./src/index.ts",
+	"imports": {
+		"#types/*": "./types/*",
+		"#utils/*": "./utils/*"
+	},
+	"exports": {
+		"import": {
+			"types": "./.build/main.d.mts",
+			"default": "./.build/main.mjs"
+		},
+		"require": {
+			"types": "./.build/main.d.cts",
+			"default": "./.build/main.cjs"
+		}
+	},
 	"scripts": {
-		"build": "ts-node ./scripts/build.ts"
+		"build": "unbuild"
 	},
 	"dependencies": {
 		"map-obj": "^5.0.2",
 		"type-fest": "^4.2.0"
 	},
 	"devDependencies": {
-		"lionconfig": "^3.1.0",
-		"typescript": "^5.2.2"
-	}
+		"@tunnel/tsconfig": "0.0.0",
+		"dprint": "^0.45.0",
+		"typescript": "^5.3.3",
+		"unbuild": "^2.0.0"
+	},
+	"files": [
+		".build"
+	]
 }
