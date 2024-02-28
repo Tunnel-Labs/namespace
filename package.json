@@ -1,6 +1,6 @@
 {
 	"name": "@tunnel/namespace",
-	"version": "2.2.5",
+	"version": "2.3.0",
 	"type": "module",
 	"imports": {
 		"#types/*": "./types/*",
@@ -21,6 +21,7 @@
 	},
 	"dependencies": {
 		"map-obj": "^5.0.2",
+		"rename-fn": "2.1.0",
 		"type-fest": "^4.2.0"
 	},
 	"devDependencies": {

@@ -3,8 +3,9 @@ export type {
 	NestedNamespace,
 	OverridePropertyKeys,
 	PropertiesWithOverride,
-} from '../types/namespace.ts';
+} from '../types/namespace.js';
 export {
 	createFlatNamespace,
 	createNestedNamespace,
-} from '../utils/namespace.ts';
+} from '../utils/namespace.js';
+export { createNamespaceProxy } from '../utils/proxy.js';
