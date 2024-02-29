@@ -64,8 +64,10 @@ export function createNestedNamespace<
 	});
 
 	for (const propertyIdentifier of propertyIdentifiers) {
+		const separatorIndex = propertyIdentifier.indexOf(separator);
 		// We bind the `this` type of all library methods to the library
-		let [namespace, propertyKey] = propertyIdentifier.split(separator);
+		const namespace = propertyIdentifier.slice(0, separatorIndex);
+		let propertyKey = propertyIdentifier.slice(separatorIndex + 1);
 		const property = properties[propertyIdentifier];
 		if (propertyKey?.endsWith(overrideSuffix)) {
 			propertyKey = propertyKey.slice(0, -overrideSuffix.length);
